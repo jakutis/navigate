@@ -204,7 +204,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                         w.setTimeout(function() {
                             navigate(getCurrentPath());
                         }, 0);
-                    } else if(path !== '/favicon.ico') {
+                    } else {
                         w.location.href = opts.basePath + '/#' + path;
                     }
                 }
