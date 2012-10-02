@@ -1,7 +1,7 @@
 {
   "name": "navigate",
   "description": "A router for the browser (client-side JavaScript)",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "keywords": [
     "router",
     "route",
