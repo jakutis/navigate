@@ -18,6 +18,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 })('navigate', this, function (name, context) {
     var lastPath, getCurrentPath, handle, w, html5, add, navigate, regexps, handlers;
     var iframe, lastIframePath, hashToPath, lastButton;
+    lastPath = null;
     w = window;
     var opts = {
         clickHandlingEnabled : true,
@@ -40,22 +41,38 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         if(!initialized || path === lastPath) {
             return;
         }
+        var handled = false;
         for(var n = regexps.length, i = 0; i < n; i += 1) {
             var args = regexps[i].exec(path);
             if(args !== null) {
                 args.shift();
                 handlers[i](lastPath, path, args);
+                handled = true;
                 break;
             }
         }
         lastPath = path;
+        return handled;
+    };
+    hashToPath = function(path) {
+        if(path.charAt(0) === '#') {
+            path = path.substr(1);
+        }
+        if(path === '') {
+            return '/';
+        }
+        return path;
+    };
+    var getHTML5Path = function() {
+        var path = w.document.location.pathname + w.document.location.search;
+        path = path.substr(opts.basePath.length);
+        return path === '' ? '/' : path;
+    };
+    var getHTML4Path = function() {
+        return hashToPath(w.location.hash);
     };
     if(html5) {
-        getCurrentPath = function() {
-            var path = w.document.location.pathname + w.document.location.search;
-            path = path.substr(opts.basePath.length);
-            return path === '' ? '/' : path;
-        };
+        getCurrentPath = getHTML5Path;
         addEvent(w, 'popstate', function() {
             handle(getCurrentPath());
         });
@@ -64,22 +81,15 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
             handle(path);
         };
     } else {
-        hashToPath = function(path) {
-            if(path.charAt(0) === '#') {
-                path = path.substr(1);
-            }
-            if(path === '') {
-                return '/';
-            }
-            return path;
-        };
-        getCurrentPath = function() {
-            return hashToPath(w.location.hash);
-        };
+        getCurrentPath = getHTML4Path;
         if('onhashchange' in w && (!w.document.documentMode || w.document.documentMode >= 8)) {
             addEvent(w, 'hashchange', function() {
                 handle(getCurrentPath());
             });
+            navigate = function(path) {
+                w.location.hash = '#' + path;
+                handle(path);
+            };
         } else {
             iframe = w.document.createElement('iframe');
             iframe.style.display = 'none';
@@ -104,10 +114,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                 }
                 handle(path);
             }, 300);
+            navigate = function(path) {
+                w.location.hash = '#' + path;
+            };
         }
-        navigate = function(path) {
-            w.location.hash = '#' + path;
-        };
     }
     lastButton = 0;
     addEvent(w.document, 'mousedown', function(e) {
@@ -144,7 +154,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         if(path.charAt(0) !== '/') {
             path = '/' + path;
         }
-        if (el.hash) {
+        if (el.hash !== '' && el.hash !== '#') {
             return;
         }
         var origin = w.location.protocol + '//' + w.location.hostname;
@@ -161,7 +171,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
             e.preventDefault();
         }
         e.returnValue = false;
-        navigate(path);
+        navigate(path.substr(opts.basePath.length));
         return false;
     });
 
@@ -171,8 +181,24 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         } else if(typeof a === 'object' && typeof b === 'function') {
             add(a, b);
         } else if(typeof a === 'undefined' && typeof b === 'undefined') {
-            initialized = true;
-            navigate(getCurrentPath());
+            if(!initialized) {
+                initialized = true;
+                var path;
+                if(html5) {
+                    path = getHTML4Path();
+                    w.location.hash = '';
+                    if(path === '/' || (path !== '/' && !navigate(path))) {
+                        navigate(getCurrentPath());
+                    }
+                } else {
+                    path = getHTML5Path();
+                    if(path === '/') {
+                        navigate(getCurrentPath());
+                    } else {
+                        w.location.href = opts.basePath + '/#' + path;
+                    }
+                }
+            }
         } else if(typeof a === 'object' && typeof b === 'undefined') {
             for(var i in a) {
                 if(a.hasOwnProperty(i)) {
