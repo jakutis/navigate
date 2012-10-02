@@ -19,7 +19,7 @@ Author: [Vytautas Jakutis](https://jakut.is)
 # features
 
 * has no dependencies
-* supports Asynchronous Module Loader (AMD, RequireJS), CommonJS (Node.js require) and regular <script></script> loading
+* supports Asynchronous Module Loader (AMD, RequireJS), CommonJS (Node.js require) and regular &lt;script&gt; loading
 * if HTML5 History API is not available, falls back to hashes
 * handles click events on same origin links
 * supports browsers:
