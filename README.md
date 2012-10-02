@@ -23,8 +23,8 @@ Author: [Vytautas Jakutis](https://jakut.is)
 * if HTML5 History API is not available, falls back to hashes
 * handles click events on same origin links
 * supports browsers:
-  - Mozilla Firefox 2.0+
-  - Opera 10.50+
-  - Google Chrome 5+
+  - Mozilla Firefox 1.0+
+  - Opera 8.00+
+  - Google Chrome 1+
   - Microsoft Internet Explorer 6+
-  - Apple Safari 4.0+
+  - Apple Safari 3.0+
