@@ -20,6 +20,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     var iframe, lastIframePath, hashToPath, lastButton;
     lastPath = null;
     w = window;
+    var ie = typeof w.attachEvent !== 'undefined' && typeof w.addEventListener === 'undefined';
     var opts = {
         clickHandlingEnabled : true,
         basePath : ''
@@ -90,7 +91,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                 w.location.hash = '#' + path;
                 handle(path);
             };
-        } else {
+        } else if(ie) {
             iframe = w.document.createElement('iframe');
             iframe.style.display = 'none';
             w.document.body.appendChild(iframe);
@@ -113,6 +114,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                     lastIframePath = iframePath;
                 }
                 handle(path);
+            }, 300);
+            navigate = function(path) {
+                w.location.hash = '#' + path;
+            };
+        } else {
+            w.setInterval(function() {
+                handle(getCurrentPath());
             }, 300);
             navigate = function(path) {
                 w.location.hash = '#' + path;
