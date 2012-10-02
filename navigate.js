@@ -178,7 +178,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     return function(a, b) {
         if(typeof a === 'string' && typeof b === 'undefined') {
             navigate(a);
-        } else if(typeof a === 'object' && typeof b === 'function') {
+        } else if((typeof a === 'object' || typeof a === 'function') && typeof b === 'function') {
             add(a, b);
         } else if(typeof a === 'undefined' && typeof b === 'undefined') {
             if(!initialized) {
@@ -209,7 +209,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                 opts.basePath = opts.basePath.substr(0, opts.basePath.length - 1);
             }
         } else {
-            throw new Error('navigate.js: incorrect arguments');
+            throw new Error('navigate.js: incorrect arguments: ' + a + '(' +
+                typeof a + '), ' + b + ' (' + typeof b + ')');
         }
     };
 });
