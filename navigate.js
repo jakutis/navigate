@@ -157,11 +157,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         if (!el || el.nodeName !== 'A') {
             return;
         }
-        var href = el.href;
-        var path = el.pathname + el.search;
-        if(path.charAt(0) !== '/') {
-            path = '/' + path;
-        }
         if (el.hash !== '' && el.hash !== '#') {
             return;
         }
@@ -169,8 +164,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         if (w.location.port) {
             origin += ':' + w.location.port;
         }
-        if(href.indexOf(origin) !== 0) {
+        var href = el.href;
+        if(!(typeof el.hostname === 'string' && el.hostname === '') && href.indexOf(origin) !== 0) {
             return;
+        }
+        var path = el.pathname + el.search;
+        if(path.charAt(0) !== '/') {
+            path = '/' + path;
         }
         if(path.substr(0, opts.basePath.length) !== opts.basePath) {
             return;
