@@ -201,7 +201,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                 } else {
                     path = getHTML5Path();
                     if(path === '/') {
-                        navigate(getCurrentPath());
+                        w.setTimeout(function() {
+                            navigate(getCurrentPath());
+                        }, 0);
                     } else {
                         w.location.href = opts.basePath + '/#' + path;
                     }
