@@ -42,6 +42,15 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     add = function(regexp, handler) {
         regexps.push(regexp);
         handlers.push(handler);
+        return function() {
+            for(var n = regexps.length; n > 0; ) {
+                n -= 1;
+                if(regexps[n] === regexp && handlers[n] === handler) {
+                    regexps.splice(n, 1);
+                    handlers.splice(n, 1);
+                }
+            }
+        };
     };
     handle = function(path) {
         if(!initialized || path === lastPath) {
@@ -195,7 +204,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         if(typeof a === 'string' && typeof b === 'undefined') {
             navigate(a);
         } else if((typeof a === 'object' || typeof a === 'function') && typeof b === 'function') {
-            add(a, b);
+            return add(a, b);
         } else if(typeof a === 'undefined' && typeof b === 'undefined') {
             if(!initialized) {
                 initialized = true;
