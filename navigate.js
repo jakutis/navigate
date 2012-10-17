@@ -212,21 +212,16 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                 var path;
                 if(html5) {
                     path = getHTML4Path();
-                    w.location.hash = '';
-                    if(path === '/' || (path !== '/' && !navigate(path))) {
-                        path = getCurrentPath();
+                    if(path !== '/') {
                         navigate(path);
-                        a(path);
-                    } else {
-                        a(getCurrentPath());
                     }
+                    w.location.hash = '';
+                    a(getCurrentPath());
                 } else {
                     path = getHTML5Path();
                     if(path === '/') {
                         w.setTimeout(function() {
-                            path = getCurrentPath();
-                            navigate(path);
-                            a(path);
+                            a(getCurrentPath());
                         }, 0);
                     } else {
                         w.location.href = opts.basePath + '/#' + path;
