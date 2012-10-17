@@ -205,7 +205,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
             navigate(a);
         } else if((typeof a === 'object' || typeof a === 'function') && typeof b === 'function') {
             return add(a, b);
-        } else if(typeof a === 'undefined' && typeof b === 'undefined') {
+        } else if((typeof a === 'undefined' || typeof a === 'function') && typeof b === 'undefined') {
+            a = a || function() {};
             if(!initialized) {
                 initialized = true;
                 var path;
@@ -213,18 +214,27 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                     path = getHTML4Path();
                     w.location.hash = '';
                     if(path === '/' || (path !== '/' && !navigate(path))) {
-                        navigate(getCurrentPath());
+                        path = getCurrentPath();
+                        navigate(path);
+                        a(path);
+                    } else {
+                        a(getCurrentPath());
                     }
                 } else {
                     path = getHTML5Path();
                     if(path === '/') {
                         w.setTimeout(function() {
-                            navigate(getCurrentPath());
+                            path = getCurrentPath();
+                            navigate(path);
+                            a(path);
                         }, 0);
                     } else {
                         w.location.href = opts.basePath + '/#' + path;
+                        a(path);
                     }
                 }
+            } else {
+                a(getCurrentPath());
             }
         } else if(typeof a === 'object' && typeof b === 'undefined') {
             for(var i in a) {
