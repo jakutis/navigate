@@ -61,7 +61,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
             var args = regexps[i].exec(path);
             if(args !== null) {
                 args.shift();
-                handlers[i](lastPath, path, args);
+                handlers[i](args, lastPath, path);
                 handled = true;
                 break;
             }
