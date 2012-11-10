@@ -48,7 +48,7 @@ Author: [Vytautas Jakutis](https://jakut.is)
     });
 
     // handle navigations to /user/* pages
-    navigate('^\\/user\\/(.+)$', function(args, from, to) {
+    navigate(/^\/user\/(.+)$/, function(args, from, to) {
         console.log('Navigated from page ' + from + ' to ' + to);
         console.log('Showing user ' + args[0]);
     });
