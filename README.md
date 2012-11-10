@@ -31,29 +31,27 @@ Author: [Vytautas Jakutis](https://jakut.is)
 
 # API Reference
 
-```
-// configure, can be called anytime at all (including never)
-navigate({
-    // whether same origin a.href clicks are captured
-    clickHandlingEnabled : true,
-    // URL path prefix
-    basePath : ''
-});
+    // configure, can be called anytime at all (including never)
+    navigate({
+        // whether same origin a.href clicks are captured
+        clickHandlingEnabled : true,
+        // URL path prefix
+        basePath : ''
+    });
 
-// initialize
-navigate();
+    // initialize
+    navigate();
 
-// another way to initialize - when the initial page is needed
-navigate(function(entryPage) {
-    console.log('Entry page to this web app is ' + entryPage);
-});
+    // another way to initialize - when the initial page is needed
+    navigate(function(entryPage) {
+        console.log('Entry page to this web app is ' + entryPage);
+    });
 
-// handle navigations to /user/* pages
-navigate('^\\/user\\/(.+)$', function(args, from, to) {
-    console.log('Navigated from page ' + from + ' to ' + to);
-    console.log('Showing user ' + args[0]);
-});
+    // handle navigations to /user/* pages
+    navigate('^\\/user\\/(.+)$', function(args, from, to) {
+        console.log('Navigated from page ' + from + ' to ' + to);
+        console.log('Showing user ' + args[0]);
+    });
 
-// navigate to user's "tahu" page
-navigate('/user/tahu');
-```
+    // navigate to user's "tahu" page
+    navigate('/user/tahu');
