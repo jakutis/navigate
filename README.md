@@ -16,7 +16,7 @@ License: [MIT](https://jakut.is/git/NAVIGATE/plain/LICENSE)
 
 Author: [Vytautas Jakutis](https://jakut.is)
 
-# features
+# Features
 
 * has no dependencies
 * supports Asynchronous Module Loader (AMD, RequireJS), CommonJS (Node.js require) and regular &lt;script&gt; loading
@@ -28,3 +28,32 @@ Author: [Vytautas Jakutis](https://jakut.is)
   - Google Chrome 1+
   - Microsoft Internet Explorer 6+
   - Apple Safari 3.0+
+
+# API Reference
+
+```
+// configure, can be called anytime at all (including never)
+navigate({
+    // whether same origin a.href clicks are captured
+    clickHandlingEnabled : true,
+    // URL path prefix
+    basePath : ''
+});
+
+// initialize
+navigate();
+
+// another way to initialize - when the initial page is needed
+navigate(function(entryPage) {
+    console.log('Entry page to this web app is ' + entryPage);
+});
+
+// handle navigations to /user/* pages
+navigate('^\\/user\\/(.+)$', function(args, from, to) {
+    console.log('Navigated from page ' + from + ' to ' + to);
+    console.log('Showing user ' + args[0]);
+});
+
+// navigate to user's "tahu" page
+navigate('/user/tahu');
+```
