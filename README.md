@@ -42,7 +42,7 @@ Author: [Vytautas Jakutis](https://jakut.is)
     // initialize
     navigate();
 
-    // another way to initialize - when the initial page is needed
+    // get current page (also initialize, if not initialized)
     navigate(function(entryPage) {
         console.log('Entry page to this web app is ' + entryPage);
     });
