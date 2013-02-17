@@ -1,0 +1,21 @@
+{
+  "name": "navigate",
+  "description": "A router for the browser (client-side JavaScript)",
+  "version": "0.3.2",
+  "keywords": [
+    "router",
+    "route",
+    "routes",
+    "routing"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://jakut.is/git/NAVIGATE"
+  },
+  "dependencies": {},
+  "development": {},
+  "scripts": [
+    "navigate.js"
+  ],
+  "license": "MIT"
+}
