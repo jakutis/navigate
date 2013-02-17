@@ -14,6 +14,7 @@
   },
   "dependencies": {},
   "development": {},
+  "main": "navigate.js",
   "scripts": [
     "navigate.js"
   ],
