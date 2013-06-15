@@ -31,9 +31,17 @@
     "url": "https://jakut.is/git/NAVIGATE"
   },
   "dependencies": {},
+  "devDependencies": {
+    "mocha": "1.9.x",
+    "phantomjs": "1.9.x",
+    "mocha-phantomjs": "3.0.0"
+  },
   "main": "navigate.js",
   "engines": {
     "node": "*"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/mocha-phantomjs ./test/index.html"
   },
   "jam": {
     "dependencies": {},
