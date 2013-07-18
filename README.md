@@ -10,6 +10,10 @@ Git repository url: [git://jakut.is/NAVIGATE](git://jakut.is/NAVIGATE)
 
 [npm](https://npmjs.org) package: [navigate](https://npmjs.org/package/navigate)
 
+![npm stats](https://nodei.co/npm/navigate.png)
+
+![npm download stats](https://nodei.co/npm-dl/navigate.png?months=9)
+
 [jam](http://jamjs.org) package: [navigate](http://jamjs.org/packages/#/details/navigate)
 
 License: [MIT](https://jakut.is/git/NAVIGATE/plain/LICENSE)
