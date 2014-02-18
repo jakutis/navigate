@@ -1,39 +1,44 @@
-# navigate.js
+# navigate
 
-Description: A router for the browser (client-side JavaScript).
+A router for the browser (client-side JavaScript).
 
-Home page: [jakut.is/git/NAVIGATE/about](https://jakut.is/git/NAVIGATE/about/)
+- [Overview](#overview)
+- [Installation](#installation)
+- [API](#api)
+- [Development](#development)
 
-Demo page: [jakut.is/demos/navigate](https://jakut.is/demos/navigate/)
+## Overview
 
-Git repository url: [git://jakut.is/NAVIGATE](git://jakut.is/NAVIGATE)
-
-[npm](https://npmjs.org) package: [navigate](https://npmjs.org/package/navigate)
-
-![npm stats](https://nodei.co/npm/navigate.png)
-
-![npm download stats](https://nodei.co/npm-dl/navigate.png?months=9)
-
-[jam](http://jamjs.org) package: [navigate](http://jamjs.org/packages/#/details/navigate)
-
-License: [MIT](https://jakut.is/git/NAVIGATE/plain/LICENSE)
-
-Author: [Vytautas Jakutis](https://jakut.is)
-
-# Features
-
-* has no dependencies
-* supports Asynchronous Module Loader (AMD, RequireJS), CommonJS (Node.js require) and regular &lt;script&gt; loading
-* if HTML5 History API is not available, falls back to hashes
-* handles click events on same origin links
-* supports browsers:
+* Has no dependencies.
+* Supports Asynchronous Module Loader (AMD, RequireJS), CommonJS (Node.js require) and regular &lt;script&gt; loading.
+* If HTML5 History API is not available, falls back to hashes.
+* Handles click events on same origin links.
+* Tested on these browsers:
   - Mozilla Firefox 1.0+
   - Opera 8.00+
   - Google Chrome 1+
   - Microsoft Internet Explorer 6+
   - Apple Safari 3.0+
 
-# API Reference
+## Installation
+
+  Install manually by adding to your HTML file:
+
+    <script src="/path/to/navigate/navigate.js"></script>
+
+  Install with [npm](https://www.npmjs.org/package/navigate):
+
+    $ npm install --save navigate
+
+  Install with [component](http://component.io/jakutis/navigate):
+
+    $ component install jakutis/navigate
+
+  Install with [bower](http://bower.io):
+
+    $ bower install --save navigate
+
+## API
 
     // configure, can be called anytime at all (including never)
     navigate({
@@ -59,3 +64,7 @@ Author: [Vytautas Jakutis](https://jakut.is)
 
     // navigate to user's "tahu" page
     navigate('/user/tahu');
+
+## Development
+
+    TODO
